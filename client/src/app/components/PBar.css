@@ -1,0 +1,12 @@
+.pbar {
+  width: 300px;
+  height: 32px;
+  border: 2px solid #000;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.pbar__progress {
+  height: 100%;
+  width: 60%;
+  background: rgba(255, 0, 0, 1);
+}
