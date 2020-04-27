@@ -1,27 +1,17 @@
 // https://api.thevirustracker.com/free-api?countryTotal=BE
 
 import React, { useEffect, useState, Fragment } from 'react';
+import { useCorona } from '../services';
 
-import countries from '../../_data/countries.json';
-console.log(countries);
-
-const CountryStatistics = ({countryCode}) => {
-  const CORONA_API_DOMAIN = 'https://api.thevirustracker.com/free-api?';
-  const CORONA_API_COUNTRY_STATISTICS = `${CORONA_API_DOMAIN}countryTotal=${countryCode}`;
+const GlobalStatistics = ({}) => {
+  const {getGlobalStatistics} = useCorona();
 
   const [data, setData] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(CORONA_API_COUNTRY_STATISTICS);
-      let jsonData = await response.json();
-      jsonData = jsonData.countrydata[0];
-      const country = countries.find((country) => country.iso2Code == jsonData.info.code);
-      
-      setData({
-        ...jsonData,
-        countryName: country.name
-      });
+      const jsonData = await getGlobalStatistics();      
+      setData(jsonData);
     };
 
     fetchData();
@@ -29,11 +19,10 @@ const CountryStatistics = ({countryCode}) => {
   }, []);
 
   return (
-    <div className="panel">
+    <div className="">
       {!!data
       ? (
           <Fragment>
-            <div className="">{data.countryName}</div>
             <table>
               <thead>
                 <tr><th>Category</th><th>Number</th></tr>
@@ -46,6 +35,7 @@ const CountryStatistics = ({countryCode}) => {
                 <tr><td>New deaths</td><td>{data.total_new_deaths_today}</td></tr>
                 <tr><td>Active cases</td><td>{data.total_active_cases}</td></tr>
                 <tr><td>Serious cases</td><td>{data.total_serious_cases}</td></tr>
+                <tr><td>Affected countries</td><td>{data.total_affected_countries}</td></tr>
               </tbody>
             </table>
           </Fragment>
@@ -56,4 +46,4 @@ const CountryStatistics = ({countryCode}) => {
   );
 };
 
-export default CountryStatistics;
+export default GlobalStatistics;
