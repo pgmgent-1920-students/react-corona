@@ -1,16 +1,16 @@
 // https://api.thevirustracker.com/free-api?countryTotal=BE
 
-import React, { useEffect, useState, Fragment } from 'react';
-import { useCorona } from '../services';
+import React, { useEffect, useState } from 'react';
+import { CoronaApi } from '../services';
 
-const GlobalStatistics = ({}) => {
-  const {getGlobalStatistics} = useCorona();
+import Panel from './Panel';
 
+const GlobalStatistics = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
-      const jsonData = await getGlobalStatistics();      
+      const jsonData = await CoronaApi.getGlobalStatistics();      
       setData(jsonData);
     };
 
@@ -22,11 +22,8 @@ const GlobalStatistics = ({}) => {
     <div className="">
       {!!data
       ? (
-          <Fragment>
-            <table>
-              <thead>
-                <tr><th>Category</th><th>Number</th></tr>
-              </thead>
+          <Panel title={`Global Statistics`}>
+            <table className="">
               <tbody>
                 <tr><td>Cases</td><td>{data.total_cases}</td></tr>
                 <tr><td>Recovered</td><td>{data.total_recovered}</td></tr>
@@ -38,7 +35,7 @@ const GlobalStatistics = ({}) => {
                 <tr><td>Affected countries</td><td>{data.total_affected_countries}</td></tr>
               </tbody>
             </table>
-          </Fragment>
+          </Panel>
         )
       : (<p>LADEN</p>)
       }

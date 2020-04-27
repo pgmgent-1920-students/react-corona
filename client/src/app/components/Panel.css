@@ -1,0 +1,18 @@
+.panel {
+  border: 1px solid var(--color-gray-lightest);
+  background: var(--color-black);
+
+  box-sizing: border-box;
+}
+
+.panel * {
+  box-sizing: border-box;
+}
+
+.panel__header {
+  background: var(--color-gray-lightest);
+  color: var(--color-black);
+  border-bottom: 1px solid var(--color-gray-lightest);
+
+  padding: calc(var(--spacer) / 2);
+}
