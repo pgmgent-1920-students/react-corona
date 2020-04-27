@@ -8,7 +8,9 @@ import './App.css';
 function App() {
   return (
     <div className="app">   
-      <CountryStatistics />
+      <CountryStatistics countryCode={`BE`} />
+      <CountryStatistics countryCode={`NL`} />
+      <CountryStatistics countryCode={`EC`} />
     </div>
   );
 }
